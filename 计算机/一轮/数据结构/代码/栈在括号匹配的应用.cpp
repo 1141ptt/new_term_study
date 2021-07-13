@@ -1,16 +1,16 @@
 #include<bits/stdc++.h>
 #define MaxSize 10
 typedef struct {
-	char data[MaxSize]; // ¾²Ì¬Êı×é´æ·ÅÕ»ÖĞÔªËØ 
-	int top; // Õ»¶¥Ö¸Õë 
+	char data[MaxSize]; // é™æ€æ•°ç»„å­˜æ”¾æ ˆä¸­å…ƒç´  
+	int top; // æ ˆé¡¶æŒ‡é’ˆ 
 }SqStack;
-// ³õÊ¼»¯Õ» 
+// åˆå§‹åŒ–æ ˆ 
 void InitStack(SqStack &S) {}
-// ÅĞ¶ÏÕ»ÊÇ·ñÎª¿Õ 
+// åˆ¤æ–­æ ˆæ˜¯å¦ä¸ºç©º 
 bool StackEmpty(SqStack S) {}
-// ÈëÕ»
+// å…¥æ ˆ
 bool push(SqStack &S, char x) {}
-// µ¯Õ»
+// å¼¹æ ˆ
 bool pop(SqStack &S, char &x) {}
 
 bool bracketCheck(char str[], int length) {
@@ -20,12 +20,12 @@ bool bracketCheck(char str[], int length) {
 		if (str[i] == '(' || str[i] == '[' || str[i] == '{') {
 			push(S, str[i]);
 		} else {
-			if (StackEmpty(S)) { // É¨Ãèµ½×óÀ¨ºÅÇÒÕ»¿Õ 
+			if (StackEmpty(S)) { // æ‰«æåˆ°å·¦æ‹¬å·ä¸”æ ˆç©º 
 				return false;
 			}
 			
 			char topElem;
-			pop(S, topElem); // Õ»¶¥ÔªËØ³öÕ» 
+			pop(S, topElem); // æ ˆé¡¶å…ƒç´ å‡ºæ ˆ 
 			if (str[i] == ')' && topElem != '(') {
 				return false;
 			}
