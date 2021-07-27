@@ -101,3 +101,45 @@ void CreatePostThread(ThreadTree T) {
         }
     }
 }
+
+// 中序线索二叉树找中序后继
+// 找到以P为根的子树中第一个被中序遍历的结点
+ThreadNode *Firstnode(ThreadNode *p) {
+    // 循环找到最左下结点
+    while (p->ltag == 0)
+        p = p->lchild;
+    return p;
+}
+// 在中序线索二叉树中找到结点p的后继节点
+ThreadNode *Nextnode(ThreadNode *p) {
+    // 右子树最左下节点
+    if (p->rtag == 0)
+        return Firstnode(p->rchild);
+    else return p->rchild; // rtag==1直接返回后继线索
+}
+// 对中序线索二叉树进行中序遍历
+void Inorder(ThreadNode *T) {
+    for (ThreadNode *p = Firstnode(T); p != NULL; p = Nextnode(p))
+        visit(p);
+}
+
+// 中序线索二叉树找中序前驱
+// 找到以P为根的子树中最后一个被中序遍历的结点
+ThreadNode *Lastnode(ThreadNode *p) {
+    // 循环找到最右下结点
+    while (p->rtag == 0)
+        p = p->rchild;
+    return p;
+}
+// 在中序线索二叉树中找到结点p的前驱节点
+ThreadNode *Prenode(ThreadNode *p) {
+    // 右子树最右下节点
+    if (p->ltag == 0)
+        return Lastnode(p->lchild);
+    else return p->lchild; // ltag==1直接返回前驱线索
+}
+// 对中序线索二叉树进行逆向中序遍历
+void RevInorder(ThreadNode *T) {
+    for (ThreadNode *p = Lastnode(T); p != NULL; p = Prenode(p))
+        visit(p);
+}
