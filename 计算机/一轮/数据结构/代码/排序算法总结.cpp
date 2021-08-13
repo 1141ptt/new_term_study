@@ -130,6 +130,62 @@ void MergeSort(int arr[], int low,int high) {
     MergeSort(arr,mid+1,high);  // 对右半边递归
     Merge(arr,low,mid,high);  // 合并
 } 
+// 堆排序
+void adjust_heap(int* a, int node, int size)
+{
+        int left = 2*node + 1;
+        int right = 2*node + 2;
+        int max = node;
+        if( left < size && a[left] > a[max])
+                max = left;
+        if( right < size && a[right] > a[max])
+                max = right;
+        if(max != node)
+        {
+                swap( a[max], a[node]);
+                adjust_heap(a, max, size);
+        }
+}
+ 
+void heap_sort(int* a, int len)
+{
+        for(int i = len/2 -1; i >= 0; --i)
+                adjust_heap(a, i, len);
+ 
+        for(int i = len - 1; i >= 0; i--)
+        {
+                swap(a[0], a[i]);           // 将当前最大的放置到数组末尾
+                adjust_heap(a, 0 , i);              // 将未完成排序的部分继续进行堆排序
+        }
+}
+// 基数排序
+
+void radixSort(vector<int> & source)
+{
+	const int BUCKETS = 10;
+	vector<vector<int>> buckets(BUCKETS);
+ 
+	//外层循环是根据数字的位数确定的。因为是三位数，所以从2到0
+	for (int pos = 0; pos <= 2; ++pos)
+	{
+		//pos = 0, 表示个位数
+		//pos = 1, 表示十位数
+		//pos = 2, 表示百位数
+		int denominator = static_cast<int>(pow(10, pos)); // 取某一位数的时候需要用的分母
+		for (int & tmp : source) // 按数字放入桶中
+			buckets[(tmp / denominator) % 10].push_back(tmp);
+ 
+		int index = 0; 
+		// 从桶中取出来，放入原来的source序列中，以备下次遍历时使用
+		for (auto & theBucket : buckets) 
+		{
+			for (int & k : theBucket)
+				source[index++] = k;
+ 
+			theBucket.clear();//一定要清空桶中数据
+		}
+	}
+}
 int main() {
     int A[10] = {56, 24, 78, 12, 63, 94, 21, 33, 24, 86};
     int B[10] = {56, 24, 78, 12, 63, 94, 21, 33, 24, 86};
