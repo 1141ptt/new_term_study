@@ -1,2 +1,2 @@
-# summer_holiday_study
-暑假考研复习冲呀！
+# new_term_study
+考研复习强化冲呀！
